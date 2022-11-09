@@ -1,0 +1,25 @@
+pipeline {
+    agent {
+    label 'jenkinsansiblenode'
+    }
+stages{
+    stage('checkout the code'){
+    steps{
+      git credentialsId: '6a8a52d9-fbba-462f-9a60-878d0eae8a50', url: 'https://github.com/sasitechs1/practice_project.git'
+    }
+    }
+    stage('execute terraform script'){
+    steps{
+           sh "terraform -chdir=terraformscripts init"
+           sh "terraform -chdir=terraformscripts --auto-approve" 
+    }
+    }
+    stage('install tomcat'){
+        step{
+        sh "ansible-inventory  --graph -i inventory/aws_ec2.yaml"
+        sh "ansible-playbook inventory/aws_ec2.yaml /playbook/InstallTomcat.yaml --l jenkins-slave --ssh-common-args='-o StrictHostKeyChecking=no'"
+        }
+    }  
+    }//stages closing
+    
+}//pipeline ending
