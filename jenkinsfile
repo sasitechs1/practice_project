@@ -10,8 +10,8 @@ stages{
     }
     stage('execute terraform script'){
     steps{
-           sh "terraform -chdir=terraformscripts init"
-           sh "terraform -chdir=terraformscripts --auto-approve" 
+           sh "terraform -chdir=terrascript init"
+           sh "terraform -chdir=terrascript --auto-approve" 
     }
     }
     stage('install tomcat'){
