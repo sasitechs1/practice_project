@@ -40,15 +40,15 @@
       file: 
        path: /etc/systemd/system/tomcat.service
        state: touch
-    - name: edit tomcat.service
+   - name: edit tomcat.service
       blockinfile:
         dest: /etc/systemd/system/tomcat.service
         insertafter:
         block: |
-          [unit]
+          [Unit]
           Description = Apache Tomcat 7
           After = syslog.target network.target
-          [service]
+          [Service]
           User = tomcat
           Group = tomcat
           Type = oneshot
