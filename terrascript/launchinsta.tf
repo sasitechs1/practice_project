@@ -9,6 +9,6 @@ provider "aws"{
     security_groups= ["launch-wizard-15"]
     key_name= "vijay"
     tags = {
-    Name= "tomcat server" 
+    Name= "tomcatserver" 
 }    
 }
