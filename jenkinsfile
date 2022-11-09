@@ -17,7 +17,7 @@ stages{
     stage('install tomcat'){
         step{
         sh "ansible-inventory  --graph -i inventory/aws_ec2.yaml"
-        sh "ansible-playbook inventory/aws_ec2.yaml /playbook/InstallTomcat.yaml --l jenkins-slave --ssh-common-args='-o StrictHostKeyChecking=no'"
+        sh "ansible-playbook inventory/aws_ec2.yaml /playbook/InstallTomcat.yaml --limit jenkins-slave --ssh-common-args='-o StrictHostKeyChecking=no'"
         }
     }  
     }//stages closing
