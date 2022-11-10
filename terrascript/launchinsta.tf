@@ -10,6 +10,6 @@ resource "aws_instance" "AWSEC2INSTANCE" {
   key_name        = "vijay"
 
  tags = {
-  Name ="tomcat by server"
+  Name ="tomserver"
 }
 }
