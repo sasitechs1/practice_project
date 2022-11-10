@@ -14,13 +14,13 @@ stages{
     stage('execute terraform script'){
     steps{
            sh "terraform -chdir=terrascript init"
-           sh "terraform -chdir=terrascript --auto-approve" 
+           sh "terraform -chdir=terrascript apply --auto-approve" 
     }
     }
     stage('install tomcat'){
         step{
         sh "ansible-inventory  --graph -i inventory/aws_ec2.yaml"
-        sh "ansible-playbook inventory/aws_ec2.yaml /playbook/InstallTomcat.yaml --private-key=$AWS_EC2_PRIVATE_KEY  --limit jenkins-slave --ssh-common-args='-o StrictHostKeyChecking=no'"
+        sh "ansible-playbook -i inventory/aws_ec2.yaml /playbook/InstallTomcat.yaml --private-key=$AWS_EC2_PRIVATE_KEY  --limit jenkins-slave --ssh-common-args='-o StrictHostKeyChecking=no'"
         }
     }  
     }//stages closing
