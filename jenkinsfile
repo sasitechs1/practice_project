@@ -2,6 +2,9 @@ pipeline {
     agent {
     label 'jenkinsansiblenode'
     }
+     environment {
+   AWS_EC2_PRIVATE_KEY=credentials('ec2-private-key') 
+  }
 stages{
     stage('checkout the code'){
     steps{
@@ -17,7 +20,7 @@ stages{
     stage('install tomcat'){
         step{
         sh "ansible-inventory  --graph -i inventory/aws_ec2.yaml"
-        sh "ansible-playbook inventory/aws_ec2.yaml /playbook/InstallTomcat.yaml --limit jenkins-slave --ssh-common-args='-o StrictHostKeyChecking=no'"
+        sh "ansible-playbook inventory/aws_ec2.yaml /playbook/InstallTomcat.yaml credentials=$AWS_EC2_PRIVATE_KEY  --limit jenkins-slave --ssh-common-args='-o StrictHostKeyChecking=no'"
         }
     }  
     }//stages closing
